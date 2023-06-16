@@ -12,19 +12,19 @@ for (k = 0; k < 100; k++)
 {
 if (p < k)
 {
-putchar((p / 10) + 48);
-putchar((p % 10) + 48);
-putchar(' ');
-putchar((k / 10) + 48);
-putchar((k % 10) + 48);
+	putchar((p / 10) + 48);
+	putchar((p % 10) + 48);
+	putchar(' ');
+	putchar((k / 10) + 48);
+	putchar((k % 10) + 48);
 if (p != 98 || k != 99)
 {
-putchar(',');
-putchar(' ');
+	putchar(',');
+	putchar(' ');
 }
 }
 }
 }
-putchar('\n');
+	putchar('\n');
 return(0);
 }
