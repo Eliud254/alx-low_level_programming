@@ -7,16 +7,16 @@
  */
 int main(void)
 {
-int n, m;
-for (n = 48; n <= 56; n++)
+int p, k;
+for (p = 48; p <= 56; p++)
 {
-for (m = 49; m <= 57; m++)
+for (k = 49; k <= 57; k++)
 {
-if (m > n)
+if (k > p)
 {
-putchar(n);
-putchar(m);
-if (n != 56 || m != 57)
+putchar(p);
+putchar(k);
+if (p != 56 || k != 57)
 {
 putchar(',');
 putchar(' ');
