@@ -2,21 +2,20 @@
 #include <stdlib.h>
 #include <time.h>
 /**
- * main - prints all possible combinations of single digit numbers
- *Numbers must be separated by (,)followed by a space
- *Numbers should be printed in ascending order
- * Return:  0 (Success)
+ * main  -prints all possible combinations of single digit numbers
+ * Return: 0 (Success)
  */
 int main(void)
 {
-int n;
-for (n = 48; n < 58; n++)
+int k;
+for (k = 48; k < 58; k++)
 {
-putchar(n);
-if (n != 57)
+	putchar(k);
+if (k != 57)
 {
-putchar(',);
+	putchar(',');
+	putchar(' ');
 }
-putchar('\n');
-return (0);
+	putchar('\n');
+return(0);
 }
