@@ -3,7 +3,7 @@
 /**
  * Prints the last digit of a number.
  *
- * @k :The number from which the last digit will be extracted.
+ * @r :The number from which the last digit will be extracted.
  * Return:value of the last digit of number
  */
 
