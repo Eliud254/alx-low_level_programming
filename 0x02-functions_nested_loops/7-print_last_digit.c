@@ -3,14 +3,14 @@
 /**
  * Prints the last digit of a number.
  *
- * @r :The number from which the last digit will be extracted.
+ * @n :The number from which the last digit will be extracted.
  * Return:value of the last digit of number
  */
 
-int print_last_digit(int r)
+int print_last_digit(int n)
 {
 int last;
-last = r % 10;
+last = n % 10;
 
 if (last < 0)
 {
