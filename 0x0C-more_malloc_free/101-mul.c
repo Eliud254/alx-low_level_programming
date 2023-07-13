@@ -9,61 +9,61 @@
  */
 void multiply(char *num1, char *num2)
 {
-	int len1, len2, len, i, j, carry;
-	int *result;
+    int len1, len2, len, i, j, carry;
+    int *result;
 
-	len1 = 0;
-	while (num1[len1])
-	{
-		if (!isdigit(num1[len1]))
-		{
-			printf("Error\n");
-			exit(98);
-		}
-		len1++;
-	}
+    len1 = 0;
+    while (num1[len1])
+    {
+        if (!isdigit(num1[len1]))
+        {
+            printf("Error\n");
+            exit(98);
+        }
+        len1++;
+    }
 
-	len2 = 0;
-	while (num2[len2])
-	{
-		if (!isdigit(num2[len2]))
-		{
-			printf("Error\n");
-			exit(98);
-		}
-		len2++;
-	}
+    len2 = 0;
+    while (num2[len2])
+    {
+        if (!isdigit(num2[len2]))
+        {
+            printf("Error\n");
+            exit(98);
+        }
+        len2++;
+    }
 
-	len = len1 + len2;
-	result = calloc(len, sizeof(int));
-	if (result == NULL)
-	{
-		printf("Error\n");
-		exit(98);
-	}
+    len = len1 + len2;
+    result = calloc(len, sizeof(int));
+    if (result == NULL)
+    {
+        printf("Error\n");
+        exit(98);
+    }
 
-	for (i = len1 - 1; i >= 0; i--)
-	{
-		carry = 0;
-		for (j = len2 - 1; j >= 0; j--)
-		{
-			carry += (num1[i] - '0') * (num2[j] - '0') + result[i + j + 1];
-			result[i + j + 1] = carry % 10;
-			carry /= 10;
-		}
-		if (carry > 0)
-			result[i + j + 1] += carry;
-	}
+    for (i = len1 - 1; i >= 0; i--)
+    {
+        carry = 0;
+        for (j = len2 - 1; j >= 0; j--)
+        {
+            carry += (num1[i] - '0') * (num2[j] - '0') + result[i + j + 1];
+            result[i + j + 1] = carry % 10;
+            carry /= 10;
+        }
+        if (carry > 0)
+            result[i + j + 1] += carry;
+    }
 
-	i = 0;
-	while (result[i] == 0 && i < len - 1)
-		i++;
+    i = 0;
+    while (result[i] == 0 && i < len - 1)
+        i++;
 
-	for (; i < len; i++)
-		printf("%d", result[i]);
-	printf("\n");
+    for (; i < len; i++)
+        printf("%d", result[i]);
+    printf("\n");
 
-	free(result);
+    free(result);
 }
 
 /**
@@ -75,14 +75,14 @@ void multiply(char *num1, char *num2)
  */
 int main(int argc, char *argv[])
 {
-	if (argc != 3)
-	{
-		printf("Error\n");
-		return (98);
-	}
+    if (argc != 3)
+    {
+        printf("Error\n");
+        return (98);
+    }
 
-	multiply(argv[1], argv[2]);
+    multiply(argv[1], argv[2]);
 
-	return (0);
+    return (0);
 }
 
