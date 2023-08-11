@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 /**
- * error_file - Checks if files can be opened.
+ * error_file - Checks if files can be opened and,
  * @file_from: File descriptor for the source file.
  * @file_to: File descriptor for the destination file.
  * @argv: Command-line arguments.
