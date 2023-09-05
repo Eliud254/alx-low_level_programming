@@ -3,46 +3,59 @@
 #include <stdlib.h>
 
 /**
- *error_file - Checks if files can be opened and
- *exits with an error message if not.
- * @file_from: descriptor for the source file.
- * @file_to: descriptor for the destination file.
- * @argv: Arguments vector of the file.
+ * create_buffer - Allocates 1024 bytes for a buffer.
+ * @file: The name of the file the buffer is storing characters for.
  *
- *This function checks if files can
- *be opened and exits the program with
- *an error message if an open operation fails.
+ * Return: A pointer to the newly-allocated buffer.
  */
-void error_file(int file_from, int file_to, char *argv[])
+char *create_buffer(char *file)
 {
-if (file_from == -1)
-}
-dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-exit(98);
-}
-if (file_to == -1)
+char *buffer;
+
+buffer = malloc(sizeof(char) * 1024);
+
+if (buffer == NULL)
 {
-dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+dprintf(STDERR_FILENO,
+"Error: Can't allocate memory for %s\n", file);
 exit(99);
+}
+
+return (buffer);
+}
+
+/**
+ * close_file - Closes file descriptors.
+ * @fd: file descriptor is to be closed.
+ */
+void close_file(int fd)
+{
+int d;
+
+d = close(fd);
+
+if (d == -1)
+{
+dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", fd);
+exit(100);
 }
 }
 
 /**
- * main - Copies contents.
- * @argc: command-line arguments number
- * @argv: Arguments vector of the file
+ * main - Copies the contents of a file to another file.
+ * @argc: The number of arguments supplied to the program.
+ * @argv: An array of pointers to the arguments.
  *
- * Return: returns 0 always when success
+ * Return: 0 on success.
  *
  * Description: Exits with specific error codes
- * in case of incorrect arguments
- * or file operation failures.
+ *in case of incorrect arguments
+ *              or file operation failures.
  */
 int main(int argc, char *argv[])
 {
-int source_fd, dest_fd, close_result;
-ssize_t read_chars, write_chars;
-char buffer[1024];
+int from, to, r, w;
+char *buffer;
 
 if (argc != 3)
 {
@@ -50,34 +63,37 @@ dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
 exit(97);
 }
 
-source_fd = open(argv[1], O_RDONLY);
-dest_fd = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
-error_file(source_fd, dest_fd, argv);
+buffer = create_buffer(argv[2]);
+from = open(argv[1], O_RDONLY);
+r = read(from, buffer, 1024);
+to = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 
-read_chars = 1024;
-while (read_chars == 1024)
+do {
+if (from == -1 || r == -1)
 {
-read_chars = read(source_fd, buffer, 1024);
-if (read_chars == -1)
-error_file(-1, 0, argv);
-write_chars = write(dest_fd, buffer, read_chars);
-if (write_chars == -1)
-error_file(0, -1, argv);
+dprintf(STDERR_FILENO,
+"Error: Can't read from file %s\n", argv[1]);
+free(buffer);
+exit(98);
 }
 
-close_result = close(source_fd);
-if (close_result == -1)
+w = write(to, buffer, r);
+if (to == -1 || w == -1)
 {
-dprintf(STDERR_FILENO, "Error: Can't close source file descriptor\n");
-exit(100);
+dprintf(STDERR_FILENO,
+"Error: Can't write to %s\n", argv[2]);
+free(buffer);
+exit(99);
 }
 
-close_result = close(dest_fd);
-if (close_result == -1)
-{
-dprintf(STDERR_FILENO, "Error: Can't close destination file descriptor\n");
-exit(100);
-}
+r = read(from, buffer, 1024);
+to = open(argv[2], O_WRONLY | O_APPEND);
+
+} while (r > 0);
+
+free(buffer);
+close_file(from);
+close_file(to);
 
 return (0);
 }
