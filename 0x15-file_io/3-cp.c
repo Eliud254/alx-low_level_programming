@@ -3,40 +3,40 @@
 #include <stdlib.h>
 
 /**
- * error_file - Checks if files can be opened and exits
- *with an error message if not.
- * @file_from: File descriptor for the source file.
- * @file_to: File descriptor for the destination file.
- * @argv: Arguments vector.
+ *error_file - Checks if files can be opened and
+ *exits with an error message if not.
+ * @file_from: descriptor for the source file.
+ * @file_to: descriptor for the destination file.
+ * @argv: Arguments vector of the file.
  *
- * This function checks if files can be opened and
- * exits the program with
- * an error message if an open operation fails.
+ *This function checks if files can
+ *be opened and exits the program with
+ *an error message if an open operation fails.
  */
 void error_file(int file_from, int file_to, char *argv[])
 {
 if (file_from == -1)
-{
+}
 dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
-exit(EXIT_FAILURE);
+exit(98);
 }
 if (file_to == -1)
 {
 dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
-exit(EXIT_FAILURE);
+exit(99);
 }
 }
 
 /**
- * main - Copies the contents of one file to another.
- * @argc: Number of command-line arguments.
- * @argv: Arguments vector of the file.
+ * main - Copies contents.
+ * @argc: command-line arguments number
+ * @argv: Arguments vector of the file
  *
- * Return: Always returns 0 on success.
+ * Return: returns 0 always when success
  *
  * Description: Exits with specific error codes
- *in case of incorrect arguments
- *or file operation failures.
+ * in case of incorrect arguments
+ * or file operation failures.
  */
 int main(int argc, char *argv[])
 {
@@ -47,11 +47,11 @@ char buffer[1024];
 if (argc != 3)
 {
 dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
-exit(EXIT_FAILURE);
+exit(97);
 }
 
 source_fd = open(argv[1], O_RDONLY);
-dest_fd = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC | O_APPEND, 0664);
+dest_fd = open(argv[2], O_CREAT | O_WRONLY | O_TRUNC, 0664);
 error_file(source_fd, dest_fd, argv);
 
 read_chars = 1024;
@@ -69,15 +69,16 @@ close_result = close(source_fd);
 if (close_result == -1)
 {
 dprintf(STDERR_FILENO, "Error: Can't close source file descriptor\n");
-exit(EXIT_FAILURE);
+exit(100);
 }
 
 close_result = close(dest_fd);
 if (close_result == -1)
 {
 dprintf(STDERR_FILENO, "Error: Can't close destination file descriptor\n");
-exit(EXIT_FAILURE);
+exit(100);
 }
 
-return (EXIT_SUCCESS);
+return (0);
 }
+
