@@ -3,8 +3,8 @@
 /**
  * add_dnodeint -Top the  new node at the beginning of a dlistint_t list.
  * @head: The pointer to  head of  dlistint_t list.
- * @n: integer 
- *
+ * @n: integer
+ * *
  * Return: If the function fails - NULL.
  *
  */
