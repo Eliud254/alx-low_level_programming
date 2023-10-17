@@ -2,39 +2,43 @@
 #include <stdlib.h>
 
 /**
- * delete_nodeint_at_index- Deletes a node
- * @head: First element in the list pointer
- * @index: The node index to delete
- * Return: 1= Success  -1 = fail
+ * delete_nodeint_at_index - Deletes a node at a given index
+ * @head: A pointer to a pointer to the first element in the list
+ * @index: The index of the node to delete
+ * Return: 1 for Success or -1 for fail
  */
-
-int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
+int delete_nodeint_at_index(listint_t **head, unsigned int index)
 {
-	dlistint_t *tempnode = *head;
-	dlistint_t *currentnode = NULL;
-	unsigned int i = 0;
+    listint_t *current, *temp;
+    unsigned int i;
 
-	if (*head == NULL)
-	{
-		return (-1);
-	}
-	if (index == 0)
-	{
-		*head = (*head)->next;
-		free(tempnode);
-		return (1);
-	}
-	while (i < index - 1)
-	{
-		if (!tempnode || !(tempnode->next))
-		{
-			return (-1);
-		}
-		tempnode = tempnode->next;
-		i++;
-	}
-	currentnode = tempnode->next;
-	tempnode->next = currentnode->next;
-	free(currentnode);
-	return (1);
+    if (*head == NULL)
+        return (-1);
+
+    if (index == 0)
+    {
+        temp = *head;
+        *head = temp->next;
+        free(temp);
+        return (1);
+    }
+
+    current = *head;
+    for (i = 0; current && i < index - 1; i++)
+    {
+        current = current->next;
+        if (current == NULL)
+            return (-1);
+    }
+
+    if (current && current->next)
+    {
+        temp = current->next;
+        current->next = temp->next;
+        free(temp);
+        return (1);
+    }
+
+    return (-1);
 }
+
