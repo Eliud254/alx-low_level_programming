@@ -5,8 +5,8 @@
  * integers using the Linear search algorithm.
  *
  * @array: An array input
- * @size: The Size of array
- * Return: Always EXIT when SUCCESS 
+ * @size:The Size of array
+ * Return:Always EXIT when SUCCESS
  */
 int linear_search(int *array, size_t size, int value)
 {
