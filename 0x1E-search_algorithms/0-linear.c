@@ -4,22 +4,21 @@
  * linear_search - Searching value in an array of
  * integers using the Linear search algorithm.
  *
- * @array: Array input
- * @size: Size of array
- * Return: Is always EXIT_SUCCESS
+ * @array: An array input
+ * @size: The Size of array
+ * Return: Always EXIT when SUCCESS 
  */
 int linear_search(int *array, size_t size, int value)
 {
-	int n;
+	size_t inc;
 
 	if (array == NULL)
 		return (-1);
-
-	for (n = 0; n < (int)size; n++)
+	for (inc = 0; inc < size; inc++)
 	{
-		printf("Value checked array[%u] = [%d]\n", n, array[n]);
-		if (value == array[n])
-			return (n);
+		printf("Value checked array[%ld] = [%d]\n", inc, array[inc]);
+		if (array[inc] == value)
+			return (inc);
 	}
 	return (-1);
 }
